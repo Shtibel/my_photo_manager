@@ -1,14 +1,15 @@
-import 'dart:async';
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
+import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:scoped_model/scoped_model.dart';
 
 import '../services/facebook_login.dart';
 import '../Widgets/spinner.dart';
 import '../utils/db_helper.dart';
+import '../utils/triangle_sticker.dart';
+import '../models/model.dart';
 
 class FacebookPhotos extends StatefulWidget {
   @override
@@ -222,13 +223,25 @@ class _FacebookPhotos extends State<FacebookPhotos> {
   }
 
   Widget _buildFacebookItem(BuildContext context, int index, currentImageList,
-      {bool fromDB}) {
+      {bool fromDB = false}) {
     final photo = currentImageList[index]; // image entity
 
-    // num width = photo['images'][0]['width'];
-    // num height = photo['images'][0]['width'];
-    // String big = photo['images'][0]['source'];
-    // String thumb = photo['images'][photo['images'].length - 1]['source'];
+    String _thumb;
+    String _image;
+    int _width;
+    int _height;
+
+    if (fromDB) {
+      _thumb = photo['thumb'];
+      _image = photo['image'];
+      _width = photo['width'];
+      _height = photo['height'];
+    } else {
+      _thumb = photo['images'][photo['images'].length - 1]['source'];
+      _image = photo['images'][0]['source'];
+      _width = photo['images'][0]['width'];
+      _height = photo['images'][0]['height'];
+    }
 
     //print('thumb: ' + thumb);
     //print('big: ' + big);
@@ -237,40 +250,29 @@ class _FacebookPhotos extends State<FacebookPhotos> {
 
     final int size = MediaQuery.of(context).size.width ~/
         3; // gets the width of the display and divides it by the number of images per row
-
-    return InkWell(
-        onTap: () => print(photo),
-        child: Container(
-          width: size.toDouble(),
-          height: size.toDouble(),
-          child: Stack(
-            alignment: const Alignment(1.0, -1.0),
-            overflow: Overflow.clip,
-            children: <Widget>[
-              Image.network(
-                fromDB == false
-                    ? photo['images'][photo['images'].length - 1]['source']
-                    : photo['thumb'],
-                fit: BoxFit.cover,
-                width: size.toDouble(),
-                height: size.toDouble(),
-              ),
-              Transform.rotate(
-                angle: math.pi / 4.0,
-                child: Container(
-                  height: 20.0,
-                  color: Colors.red,
-                  child: Center(
-                    child: Text(
-                      'Low quality',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ));
+    return ScopedModelDescendant<AppModel>(
+        builder: (BuildContext context, Widget child, AppModel model) {
+      return InkWell(
+        onTap: () {
+          Item item = Item(_thumb);
+          model.addItem(item);
+          setState(() {});
+        },
+        child: Stack(
+          alignment: const Alignment(1.0, -1.0),
+          overflow: Overflow.clip,
+          children: <Widget>[
+            Image.network(
+              _thumb,
+              fit: BoxFit.cover,
+              width: size.toDouble(),
+              height: size.toDouble(),
+            ),
+            TriangleSticker(photo, fromDB),
+          ],
+        ),
+      );
+    });
   }
 
   @override
