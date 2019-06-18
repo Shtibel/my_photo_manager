@@ -33,8 +33,8 @@ class _LocalPhotos extends State<LocalPhotos> {
       final List<AssetPathEntity> assetPathList =
           await PhotoManager.getAssetPathList(isCache: false, hasVideo: false);
 
-      print('assetPathList');
-      print(assetPathList);
+      //print('assetPathList');
+      //print(assetPathList);
 
       // this is an alternative way to look for assets paths
       // final List<AssetPathEntity> imageAsset =
@@ -47,10 +47,11 @@ class _LocalPhotos extends State<LocalPhotos> {
         // gets the list of all the images for the asset path
         final List<AssetEntity> newImageList = await assetPathList[i].assetList;
 
-        print(assetPathList[i].name + ' - ' + newImageList.length.toString());
+        //print(assetPathList[i].name + ' - ' + newImageList.length.toString());
 
         // adds every image to the global list
-        if (newImageList.length > 0 && assetPathList[i].name.toLowerCase()!='recent') {
+        if (newImageList.length > 0 &&
+            assetPathList[i].name.toLowerCase() != 'recent') {
           List<AssetEntity> imageList = <AssetEntity>[];
           for (int ii = 0; ii < newImageList.length; ii++) {
             imageList.add(newImageList[ii]);
@@ -75,11 +76,13 @@ class _LocalPhotos extends State<LocalPhotos> {
 
       tabControllerLength = tabBarLabels.length;
 
-      print('Len 1: $tabControllerLength');
-      print('Len 2: ${tabBarLabels.length}');
-      print('Len 3: ${tabBarContents.length}');
+      //print('Len 1: $tabControllerLength');
+      //print('Len 2: ${tabBarLabels.length}');
+      //print('Len 3: ${tabBarContents.length}');
 
-      setState(() {});
+      if (this.mounted) {
+        setState(() {});
+      }
     } else {
       // fail - user didn'g gave us authorisation
       // we open settings to give it manually

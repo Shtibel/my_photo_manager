@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>733485480294-de07937u9d1aophbbb16sk35dp3oa2rh.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.733485480294-de07937u9d1aophbbb16sk35dp3oa2rh</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCM08bBoMyaSRLAH6cXSY-a-HcobjMKiks</string>
+	<key>GCM_SENDER_ID</key>
+	<string>733485480294</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.myPhotoManager</string>
+	<key>PROJECT_ID</key>
+	<string>my-photo-manager</string>
+	<key>STORAGE_BUCKET</key>
+	<string>my-photo-manager.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:733485480294:ios:46998e40edb1f031</string>
+	<key>DATABASE_URL</key>
+	<string>https://my-photo-manager.firebaseio.com</string>
+</dict>
+</plist>

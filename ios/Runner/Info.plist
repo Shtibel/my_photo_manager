@@ -42,5 +42,26 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/><key>NSPhotoLibraryUsageDescription</key>
     <string>App need your agree, can visit your album</string>
+
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb372060790329125</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>372060790329125</string>
+	<key>FacebookDisplayName</key>
+	<string>my photo manager</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 </dict>
 </plist>
