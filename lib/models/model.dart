@@ -1,25 +1,44 @@
+import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class AppModel extends Model {
-  List<Item> _items = [];
-  List<Item> get items => _items;
+  List<ImageItem> _imageItems = [];
+  List<ImageItem> get imageItems => _imageItems;
+  final counter = ValueNotifier(0);
 
-  void addItem(Item item) {
+
+  void addItem(ImageItem item) {
     //print(item.name);
-    _items.add(item);
-    _items.forEach((aaa) {
-      print(aaa.name);
-    });
+    _imageItems.add(item);
+    counter.addListener(_myCallback);
+    counter.value += 1;
     notifyListeners();
   }
 
-  void deleteItem(Item item) {
-    _items.remove(item);
+  void deleteItem(ImageItem item) {
+    _imageItems.remove(item);
     notifyListeners();
+  }
+
+  String _myCallback(){
+    return 'callback';
   }
 }
 
-class Item {
-  final String name;
-  Item(this.name);
+class ImageItem {
+  final String library;
+  final String directory;
+  final String thumb;
+  final String image;
+  final int width;
+  final int height;
+
+  ImageItem({
+    this.library,
+    this.directory,
+    this.thumb,
+    this.image,
+    this.width,
+    this.height,
+  });
 }

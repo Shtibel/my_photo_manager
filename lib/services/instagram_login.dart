@@ -30,7 +30,7 @@ class AppInstagramLogin {
   Future<Stream<String>> _server() async {
     final StreamController<String> onCode = new StreamController();
     HttpServer server =
-    await HttpServer.bind(InternetAddress.loopbackIPv4, 8585);
+    await HttpServer.bind(InternetAddress.loopbackIPv4, 8585,shared: true);
     server.listen((HttpRequest request) async {
       final String code = request.uri.queryParameters["code"];
       request.response

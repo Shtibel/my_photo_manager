@@ -19,6 +19,11 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - image_cropper (0.0.1):
+    - Flutter
+    - TOCropViewController (~> 2.5.0)
+  - image_downloader (0.0.1):
+    - Flutter
   - photo_manager (0.0.1):
     - Flutter
   - shared_preferences (0.0.1):
@@ -26,11 +31,14 @@ PODS:
   - sqflite (0.0.1):
     - Flutter
     - FMDB (~> 2.7.2)
+  - TOCropViewController (2.5.0)
 
 DEPENDENCIES:
   - Flutter (from `.symlinks/flutter/ios`)
   - flutter_facebook_login (from `.symlinks/plugins/flutter_facebook_login/ios`)
   - flutter_webview_plugin (from `.symlinks/plugins/flutter_webview_plugin/ios`)
+  - image_cropper (from `.symlinks/plugins/image_cropper/ios`)
+  - image_downloader (from `.symlinks/plugins/image_downloader/ios`)
   - photo_manager (from `.symlinks/plugins/photo_manager/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
@@ -41,6 +49,7 @@ SPEC REPOS:
     - FBSDKCoreKit
     - FBSDKLoginKit
     - FMDB
+    - TOCropViewController
 
 EXTERNAL SOURCES:
   Flutter:
@@ -49,6 +58,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_facebook_login/ios"
   flutter_webview_plugin:
     :path: ".symlinks/plugins/flutter_webview_plugin/ios"
+  image_cropper:
+    :path: ".symlinks/plugins/image_cropper/ios"
+  image_downloader:
+    :path: ".symlinks/plugins/image_downloader/ios"
   photo_manager:
     :path: ".symlinks/plugins/photo_manager/ios"
   shared_preferences:
@@ -64,10 +77,13 @@ SPEC CHECKSUMS:
   flutter_facebook_login: be61e24a4b7d621515353c6b4583d1981bdaa3d6
   flutter_webview_plugin: ed9e8a6a96baf0c867e90e1bce2673913eeac694
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  image_cropper: f25bdfbf1ef970c9a0a0f78306fb6a0aaac7229e
+  image_downloader: e5e747da37f5270b2d549747fcef9d276224d7b1
   photo_manager: d47ddf6cb25cbfa837dc334540eb9a99b208e191
   shared_preferences: 1feebfa37bb57264736e16865e7ffae7fc99b523
   sqflite: ff1d9da63c06588cc8d1faf7256d741f16989d5a
+  TOCropViewController: d86078d3a57a70c116bf3db7c89c80046a0e5fdf
 
-PODFILE CHECKSUM: aff02bfeed411c636180d6812254b2daeea14d09
+PODFILE CHECKSUM: fae3d57b3fdaacf4729ac7b31851e0c1c07fbaba
 
 COCOAPODS: 1.6.2
