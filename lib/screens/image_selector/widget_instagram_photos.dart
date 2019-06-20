@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 
-import '../services/instagram_login.dart';
+import '../../services/instagram_login.dart';
 
 class InstagramPhotos extends StatefulWidget {
   @override

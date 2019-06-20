@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:my_photo_manager/models/model.dart';
-import 'package:scoped_model/scoped_model.dart';
-import 'image_selector.dart';
 
-class Home extends StatelessWidget {
+import '../image_selector/image_selector.dart';
+
+class HomeWidgetBottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ScopedModel<AppModel>(
-      model: AppModel(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Photo manager'),
-        ),
-        bottomNavigationBar: Container(
+    return Container(
           child: ButtonTheme(
             height: 70.0,
             child: RaisedButton(
@@ -30,8 +23,6 @@ class Home extends StatelessWidget {
               },
             ),
           ),
-        ),
-      ),
-    );
+        );
   }
 }

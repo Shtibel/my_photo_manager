@@ -5,11 +5,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:scoped_model/scoped_model.dart';
 
-import '../services/facebook_login.dart';
-import '../Widgets/spinner.dart';
-import '../utils/db_helper.dart';
-import '../utils/triangle_sticker.dart';
-import '../models/model.dart';
+import '../../services/facebook_login.dart';
+import '../../Widgets/spinner.dart';
+import '../../utils/db_helper.dart';
+import '../../utils/triangle_sticker.dart';
+import '../../models/model.dart';
 
 class FacebookPhotos extends StatefulWidget {
 

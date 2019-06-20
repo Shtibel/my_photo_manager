@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_downloader/image_downloader.dart';
 
-import '../models/model.dart';
+import '../../models/model.dart';
 
 enum AppState {
   free,
@@ -12,18 +12,18 @@ enum AppState {
   cropped,
 }
 
-class EditImage extends StatefulWidget {
+class ScreenEditImage extends StatefulWidget {
   final ImageItem _imageData;
 
-  EditImage(this._imageData);
+  ScreenEditImage(this._imageData);
 
   @override
   State<StatefulWidget> createState() {
-    return _EditImageState();
+    return _ScreenEditImageState();
   }
 }
 
-class _EditImageState extends State<EditImage> {
+class _ScreenEditImageState extends State<ScreenEditImage> {
   AppState state;
   File imageFile;
 
