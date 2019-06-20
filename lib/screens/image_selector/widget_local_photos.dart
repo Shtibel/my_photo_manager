@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
 
-class LocalPhotos extends StatefulWidget {
+class WidgetLocalPhotos extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _LocalPhotos();
+    return _WidgetLocalPhotos();
   }
 }
 
-class _LocalPhotos extends State<LocalPhotos> {
+class _WidgetLocalPhotos extends State<WidgetLocalPhotos> {
   final int numberOfImagesPerRow = 3;
 
   int tabControllerLength;

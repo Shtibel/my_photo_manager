@@ -19,6 +19,22 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - google_sign_in (0.0.1):
+    - Flutter
+    - GoogleSignIn (~> 4.0)
+  - GoogleSignIn (4.4.0):
+    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
+    - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GoogleToolboxForMac/DebugUtils (2.2.1):
+    - GoogleToolboxForMac/Defines (= 2.2.1)
+  - GoogleToolboxForMac/Defines (2.2.1)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.2.1)":
+    - GoogleToolboxForMac/DebugUtils (= 2.2.1)
+    - GoogleToolboxForMac/Defines (= 2.2.1)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.2.1)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.2.1)"
+  - GTMSessionFetcher/Core (1.2.2)
   - image_cropper (0.0.1):
     - Flutter
     - TOCropViewController (~> 2.5.0)
@@ -32,6 +48,8 @@ PODS:
     - Flutter
   - shared_preferences (0.0.1):
     - Flutter
+  - simple_auth_flutter (0.0.1):
+    - Flutter
   - sqflite (0.0.1):
     - Flutter
     - FMDB (~> 2.7.2)
@@ -41,12 +59,14 @@ DEPENDENCIES:
   - Flutter (from `.symlinks/flutter/ios`)
   - flutter_facebook_login (from `.symlinks/plugins/flutter_facebook_login/ios`)
   - flutter_webview_plugin (from `.symlinks/plugins/flutter_webview_plugin/ios`)
+  - google_sign_in (from `.symlinks/plugins/google_sign_in/ios`)
   - image_cropper (from `.symlinks/plugins/image_cropper/ios`)
   - image_downloader (from `.symlinks/plugins/image_downloader/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - photo_manager (from `.symlinks/plugins/photo_manager/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+  - simple_auth_flutter (from `.symlinks/plugins/simple_auth_flutter/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
 
 SPEC REPOS:
@@ -55,6 +75,9 @@ SPEC REPOS:
     - FBSDKCoreKit
     - FBSDKLoginKit
     - FMDB
+    - GoogleSignIn
+    - GoogleToolboxForMac
+    - GTMSessionFetcher
     - TOCropViewController
 
 EXTERNAL SOURCES:
@@ -64,6 +87,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_facebook_login/ios"
   flutter_webview_plugin:
     :path: ".symlinks/plugins/flutter_webview_plugin/ios"
+  google_sign_in:
+    :path: ".symlinks/plugins/google_sign_in/ios"
   image_cropper:
     :path: ".symlinks/plugins/image_cropper/ios"
   image_downloader:
@@ -76,6 +101,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/photo_manager/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
+  simple_auth_flutter:
+    :path: ".symlinks/plugins/simple_auth_flutter/ios"
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
 
@@ -87,12 +114,17 @@ SPEC CHECKSUMS:
   flutter_facebook_login: be61e24a4b7d621515353c6b4583d1981bdaa3d6
   flutter_webview_plugin: ed9e8a6a96baf0c867e90e1bce2673913eeac694
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  google_sign_in: 27e70a98b529f0b076d4b19f231b81da28b1750b
+  GoogleSignIn: 7ff245e1a7b26d379099d3243a562f5747e23d39
+  GoogleToolboxForMac: b3553629623a3b1bff17f555e736cd5a6d95ad55
+  GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
   image_cropper: f25bdfbf1ef970c9a0a0f78306fb6a0aaac7229e
   image_downloader: e5e747da37f5270b2d549747fcef9d276224d7b1
   image_picker: 16e5fec1fbc87fd3b297c53e4048521eaf17cd06
   path_provider: f96fff6166a8867510d2c25fdcc346327cc4b259
   photo_manager: d47ddf6cb25cbfa837dc334540eb9a99b208e191
   shared_preferences: 1feebfa37bb57264736e16865e7ffae7fc99b523
+  simple_auth_flutter: ec585a6e96b415247120df0a33af43dc1d2a5839
   sqflite: ff1d9da63c06588cc8d1faf7256d741f16989d5a
   TOCropViewController: d86078d3a57a70c116bf3db7c89c80046a0e5fdf
 

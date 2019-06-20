@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 import '../../services/instagram_login.dart';
 
-class InstagramPhotos extends StatefulWidget {
+class WidgetInstagramPhotos extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _InstagramPhotosState();
+    return _WidgetInstagramPhotosState();
   }
 }
 
-class _InstagramPhotosState extends State<InstagramPhotos> {
+class _WidgetInstagramPhotosState extends State<WidgetInstagramPhotos> {
   @override
   void initState() {
     super.initState();

@@ -5,6 +5,8 @@ import 'package:scoped_model/scoped_model.dart';
 import 'widget_local_photos.dart';
 import 'widget_facebook_photos.dart';
 import 'widget_instagram_photos.dart';
+import 'widget_google_photos.dart';
+
 import 'widget_bottom.dart';
 
 import '../../models/model.dart';
@@ -18,7 +20,7 @@ class ScreenImageSelector extends StatefulWidget {
 
 class _ScreenImageSelectorState extends State<ScreenImageSelector> {
   String _galleryType = 'local';
-  Widget _bodyWidget = LocalPhotos();
+  Widget _bodyWidget = WidgetLocalPhotos();
   bool bottomNavigationBar = false;
   
 
@@ -31,11 +33,13 @@ class _ScreenImageSelectorState extends State<ScreenImageSelector> {
   _changeGalleryType(String type) async {
     _galleryType = type;
     if (type == 'local') {
-      _bodyWidget = LocalPhotos();
+      _bodyWidget = WidgetLocalPhotos();
     } else if (type == 'facebook') {
-      _bodyWidget = FacebookPhotos();
+      _bodyWidget = WidgetFacebookPhotos();
     } else if (type == 'instagram') {
-      _bodyWidget = InstagramPhotos();
+      _bodyWidget = WidgetInstagramPhotos();
+    } else if (type == 'google') {
+      _bodyWidget = WidgetGooglePhotos();
     } else {
       _bodyWidget = Container(
         child: Text(type),

@@ -3,34 +3,23 @@ import 'dart:math' as math;
 
 class TriangleSticker extends StatelessWidget {
 
-  dynamic photo;
-  bool fromDB;
-
-  int _width;
-  int _height;
+  int width;
+  int height;
   bool _hasLabel = false;
   String _labelText;
   Color _labelColor;
 
-  TriangleSticker(this.photo, this.fromDB);
+  TriangleSticker(this.width, this.height);
 
   @override
   Widget build(BuildContext context) {
 
-    if(fromDB){
-      _width = photo['width'];
-      _height = photo['height'];
-    }else{
-      _width = photo['images'][0]['width'];
-      _height = photo['images'][0]['height'];
-    }
-
-    if(_width <= 300 || _height <= 300){
+    if(width <= 300 || height <= 300){
         _hasLabel = true;
         _labelText = "Can't\nPrint";
         _labelColor = Colors.red;
     }
-    if((_width > 300 && _width <= 700) || (_height > 300 && _height <= 700)){
+    if((width > 300 && width <= 700) || (height > 300 && height <= 700)){
       _hasLabel = true;
       _labelText = "Low\nQuality";
       _labelColor = Theme.of(context).primaryColor;

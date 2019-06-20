@@ -11,15 +11,14 @@ import '../../utils/db_helper.dart';
 import '../../utils/triangle_sticker.dart';
 import '../../models/model.dart';
 
-class FacebookPhotos extends StatefulWidget {
-
+class WidgetFacebookPhotos extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _FacebookPhotos();
+    return _WidgetFacebookPhotos();
   }
 }
 
-class _FacebookPhotos extends State<FacebookPhotos> {
+class _WidgetFacebookPhotos extends State<WidgetFacebookPhotos> {
   DbHelper dbHelper = DbHelper();
 
   int facebookTabControllerLength;
@@ -34,26 +33,6 @@ class _FacebookPhotos extends State<FacebookPhotos> {
     super.initState();
 
     _loadFacebookImages();
-  }
-
-  Future<void> _insertToDb(
-      String library, String directory, List<dynamic> photos) async {
-    //try insert
-    photos.forEach((photo) async {
-      String thumb = photo['images'][photo['images'].length - 1]['source'];
-      String image = photo['images'][0]['source'];
-      num width = photo['images'][0]['width'];
-      num height = photo['images'][0]['width'];
-
-      await dbHelper.insertList({
-        'library': library,
-        'directory': directory,
-        'thumb': thumb,
-        'image': image,
-        'width': width,
-        'height': height
-      });
-    });
   }
 
   Future<void> _loadFacebookImages({bool refechFromFacebook = false}) async {
@@ -102,7 +81,9 @@ class _FacebookPhotos extends State<FacebookPhotos> {
           childAspectRatio: 1.0,
         ),
         itemBuilder: (BuildContext context, int index) {
-          return _buildFacebookItem(context, index, photos, albums[i]['directory'], fromDB: true);
+          return _buildFacebookItem(
+              context, index, photos, albums[i]['directory'],
+              fromDB: true);
         },
         itemCount: photos.length,
       ));
@@ -125,7 +106,8 @@ class _FacebookPhotos extends State<FacebookPhotos> {
               childAspectRatio: 1.0,
             ),
             itemBuilder: (BuildContext context, int index) {
-              return _buildFacebookItem(context, index, allImages, 'ALL', fromDB: true);
+              return _buildFacebookItem(context, index, allImages, 'ALL',
+                  fromDB: true);
             },
             itemCount: allImages.length,
           ),
@@ -147,6 +129,9 @@ class _FacebookPhotos extends State<FacebookPhotos> {
       facebookToken = facebookResult['facebook_token'];
     }
 
+    if (facebookToken == null) {
+      return;
+    }
     //get images
     var graphResponse = await http.get(
         'https://graph.facebook.com/v2.12/me?&access_token=' +
@@ -167,7 +152,20 @@ class _FacebookPhotos extends State<FacebookPhotos> {
 
       //insert to db
       if (_isTableEmpty) {
-        _insertToDb('facebook', album['name'], photos);
+        List<Map<String, dynamic>> albumDbImages = [];
+        for (int i = 0; i < photos.length; i++) {
+          dynamic photo = photos[i];
+
+          albumDbImages.add({
+            'library': 'facebook',
+            'directory': album['name'],
+            'thumb': photo['images'][photo['images'].length - 1]['source'],
+            'image': photo['images'][0]['source'],
+            'width': photo['images'][0]['width'],
+            'height': photo['images'][0]['width']
+          });
+        }
+        dbHelper.insertToDb('facebook', album['name'], albumDbImages);
       }
 
       //set tab labels
@@ -179,7 +177,8 @@ class _FacebookPhotos extends State<FacebookPhotos> {
           childAspectRatio: 1.0,
         ),
         itemBuilder: (BuildContext context, int index) {
-          return _buildFacebookItem(context, index, photos, album['name'], fromDB: false);
+          return _buildFacebookItem(context, index, photos, album['name'],
+              fromDB: false);
         },
         itemCount: photos.length,
       ));
@@ -203,7 +202,8 @@ class _FacebookPhotos extends State<FacebookPhotos> {
               childAspectRatio: 1.0,
             ),
             itemBuilder: (BuildContext context, int index) {
-              return _buildFacebookItem(context, index, allImages, 'ALL', fromDB: false);
+              return _buildFacebookItem(context, index, allImages, 'ALL',
+                  fromDB: false);
             },
             itemCount: allImages.length,
           ),
@@ -221,7 +221,8 @@ class _FacebookPhotos extends State<FacebookPhotos> {
     return null;
   }
 
-  Widget _buildFacebookItem(BuildContext context, int index, currentImageList, String directory,
+  Widget _buildFacebookItem(
+      BuildContext context, int index, currentImageList, String directory,
       {bool fromDB = false}) {
     final photo = currentImageList[index]; // image entity
 
@@ -253,7 +254,13 @@ class _FacebookPhotos extends State<FacebookPhotos> {
         builder: (BuildContext context, Widget child, AppModel model) {
       return InkWell(
         onTap: () {
-          ImageItem item = ImageItem(library: 'facebook', directory: directory, thumb: _thumb, image: _image, width: _width, height: _height);
+          ImageItem item = ImageItem(
+              library: 'facebook',
+              directory: directory,
+              thumb: _thumb,
+              image: _image,
+              width: _width,
+              height: _height);
           model.addItem(item);
           setState(() {});
         },
@@ -267,7 +274,7 @@ class _FacebookPhotos extends State<FacebookPhotos> {
               width: size.toDouble(),
               height: size.toDouble(),
             ),
-            TriangleSticker(photo, fromDB),
+            TriangleSticker(_width, _height),
           ],
         ),
       );

@@ -107,4 +107,19 @@ class DbHelper {
 
     return result;
   }
+
+  Future<void> insertToDb(
+      String library, String directory, List<Map<String, dynamic>> photos) async {
+    //try insert
+    photos.forEach((photo) async {
+      await insertList({
+        'library': photo['library'],
+        'directory': photo['directory'],
+        'thumb': photo['thumb'],
+        'image': photo['image'],
+        'width': photo['width'],
+        'height': photo['height']
+      });
+    });
+  }
 }
