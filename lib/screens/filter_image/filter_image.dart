@@ -24,10 +24,6 @@ class ScreenFilterImage extends StatefulWidget {
 
 class _ScreenFilterImageState extends State<ScreenFilterImage> {
   final List<Filter> filters = presetFiltersList;
-
-  bool loading = true;
-  Filter _filter;
-  
   
   String fileName;
   File imageFile;
@@ -60,39 +56,26 @@ class _ScreenFilterImageState extends State<ScreenFilterImage> {
   }
 
   Future getImage(context) async {
-    
-
-    if (imageFile != null) {
-      var image = imageLib.decodeImage(imageFile.readAsBytesSync());
-      print('--- 1. image ---');
-      print(image);
-
-      image = imageLib.copyResize(image, width: 600);
-
-      print('--- 3. image ---');
-      print(image);
-
-      Map imagefile = await Navigator.push(
-        context,
-        new MaterialPageRoute(
-          builder: (context) => new PhotoFilterSelector(
-                title: Text("Photo Filter Example"),
-                image: image,
-                filters: presetFiltersList,
-                filename: fileName,
-                loader: Center(child: CircularProgressIndicator()),
-                fit: BoxFit.contain,
-              ),
-        ),
-      );
-      
-      if (imagefile != null && imagefile.containsKey('image_filtered')) {
-        setState(() {
-          imageFile = imagefile['image_filtered'];
-        });
-        print(imageFile.path);
-        print(imageFile.path);
-      }
+    var image = imageLib.decodeImage(imageFile.readAsBytesSync());
+    image = imageLib.copyResize(image, width: 600);
+     Map imagefile = await Navigator.push(
+      context,
+      new MaterialPageRoute(
+        builder: (context) => new PhotoFilterSelector(
+              title: Text("Photo Filter Example"),
+              image: image,
+              filters: presetFiltersList,
+              filename: fileName,
+              loader: Center(child: CircularProgressIndicator()),
+              fit: BoxFit.contain,
+            ),
+      ),
+    );
+    if (imagefile != null && imagefile.containsKey('image_filtered')) {
+      setState(() {
+        imageFile = imagefile['image_filtered'];
+      });
+      print(imageFile.path);
     }
   }
 
@@ -102,57 +85,19 @@ class _ScreenFilterImageState extends State<ScreenFilterImage> {
       appBar: new AppBar(
         title: new Text('Photo Filter Example'),
       ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: loading 
-        ? WidgetSpinner() 
-        : Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    flex: 6,
-                    child: Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      padding: EdgeInsets.all(12.0),
-                      child: Container(),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: filters.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return InkWell(
-                            child: Container(
-                              padding: EdgeInsets.all(5.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Container(),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    filters[index].name,
-                                  )
-                                ],
-                              ),
-                            ),
-                            onTap: () => setState(() {
-                                  _filter = filters[index];
-                                }),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ), 
-        
+      body: Center(
+        child: new Container(
+          child: imageFile == null
+              ? Center(
+                  child: new Text('No image selected.'),
+                )
+              : Image.file(imageFile),
+        ),
+      ),
+      floatingActionButton: new FloatingActionButton(
+        onPressed: () => getImage(context),
+        tooltip: 'Pick Image',
+        child: new Icon(Icons.add_a_photo),
       ),
     );
   }
