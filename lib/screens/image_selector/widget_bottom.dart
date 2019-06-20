@@ -6,8 +6,8 @@ import '../../models/model.dart';
 import '../filter_image/filter_image.dart';
 
 class ImageSelectorBottom extends StatelessWidget {
-  ScrollController _scrollController;
-  int _scrollAmount = 0;
+  final ScrollController _scrollController = ScrollController();
+  final int _scrollAmount = 0;
 
   void _scrollToStart() {
     
@@ -17,7 +17,6 @@ class ImageSelectorBottom extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
-      _scrollController = new ScrollController();
 
     if(_scrollAmount>0){
       _scrollController.animateTo(100, duration: new Duration(seconds: 2), curve: Curves.ease);

@@ -157,7 +157,7 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.1"
+    version: "0.5.0+1"
   pedantic:
     dependency: transitive
     description:
@@ -182,10 +182,12 @@ packages:
   photofilters:
     dependency: "direct main"
     description:
-      name: photofilters
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.4"
+      path: "."
+      ref: da75ed33435e8c50cd8007b0920951d456ba5399
+      resolved-ref: da75ed33435e8c50cd8007b0920951d456ba5399
+      url: "git://github.com/skkallayath/photofilters.git"
+    source: git
+    version: "1.0.3"
   quiver:
     dependency: transitive
     description:

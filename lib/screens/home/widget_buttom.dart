@@ -18,7 +18,7 @@ class HomeWidgetBottom extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ImageSelector()),
+                  MaterialPageRoute(builder: (context) => ScreenImageSelector()),
                 );
               },
             ),

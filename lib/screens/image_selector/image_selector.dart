@@ -9,14 +9,14 @@ import 'widget_bottom.dart';
 
 import '../../models/model.dart';
 
-class ImageSelector extends StatefulWidget {
+class ScreenImageSelector extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _ImageSelector();
+    return _ScreenImageSelectorState();
   }
 }
 
-class _ImageSelector extends State<ImageSelector> {
+class _ScreenImageSelectorState extends State<ScreenImageSelector> {
   String _galleryType = 'local';
   Widget _bodyWidget = LocalPhotos();
   bool bottomNavigationBar = false;

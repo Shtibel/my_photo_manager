@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'dart:async';
 import 'dart:io';
-import 'package:path/path.dart';
 import 'package:photofilters/photofilters.dart';
 import 'package:image/image.dart' as imageLib;
 
@@ -28,7 +27,7 @@ class _ScreenFilterImageState extends State<ScreenFilterImage> {
   Future getImage(context) async {
     try {
       // Saved with this method.
-      var imageId = await ImageDownloader.downloadImage(widget._imageData.image);
+      var imageId = await ImageDownloader.downloadImage(widget._imageData.image, );
       print('imageId: '+imageId);
       if (imageId == null) {
         return;
@@ -45,7 +44,13 @@ class _ScreenFilterImageState extends State<ScreenFilterImage> {
 
     if (imageFile != null) {
       var image = imageLib.decodeImage(imageFile.readAsBytesSync());
+      print('--- 1. image ---');
+      print(image);
+
       image = imageLib.copyResize(image, width: 600);
+
+      print('--- 3. image ---');
+      print(image);
 
       Map imagefile = await Navigator.push(
         context,
@@ -65,6 +70,7 @@ class _ScreenFilterImageState extends State<ScreenFilterImage> {
         setState(() {
           imageFile = imagefile['image_filtered'];
         });
+        print('imageFile.path');
         print(imageFile.path);
       }
     }
