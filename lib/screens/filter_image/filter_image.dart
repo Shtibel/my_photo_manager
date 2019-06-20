@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_photo_manager/Widgets/spinner.dart';
 
 import 'dart:async';
 import 'dart:io';
@@ -11,6 +12,8 @@ import 'package:image_downloader/image_downloader.dart';
 import '../../models/model.dart';
 
 class ScreenFilterImage extends StatefulWidget {
+
+
   final ImageItem _imageData;
 
   ScreenFilterImage(this._imageData);
@@ -20,11 +23,24 @@ class ScreenFilterImage extends StatefulWidget {
 }
 
 class _ScreenFilterImageState extends State<ScreenFilterImage> {
+  final List<Filter> filters = presetFiltersList;
+
+  bool loading = true;
+  Filter _filter;
+  
+  
   String fileName;
-  List<Filter> filters = presetFiltersList;
   File imageFile;
 
-  Future getImage(context) async {
+
+  @override
+  void initState() {
+    super.initState();
+
+    _setImage();
+  }
+
+  Future _setImage() async {
     try {
       // Saved with this method.
       var imageId = await ImageDownloader.downloadImage(widget._imageData.image, );
@@ -41,6 +57,10 @@ class _ScreenFilterImageState extends State<ScreenFilterImage> {
       print('!!!error!!!');
       print(error);
     }
+  }
+
+  Future getImage(context) async {
+    
 
     if (imageFile != null) {
       var image = imageLib.decodeImage(imageFile.readAsBytesSync());
@@ -70,7 +90,7 @@ class _ScreenFilterImageState extends State<ScreenFilterImage> {
         setState(() {
           imageFile = imagefile['image_filtered'];
         });
-        print('imageFile.path');
+        print(imageFile.path);
         print(imageFile.path);
       }
     }
@@ -82,19 +102,57 @@ class _ScreenFilterImageState extends State<ScreenFilterImage> {
       appBar: new AppBar(
         title: new Text('Photo Filter Example'),
       ),
-      body: Center(
-        child: new Container(
-          child: imageFile == null
-              ? Center(
-                  child: new Text('No image selected.'),
-                )
-              : Image.file(imageFile),
-        ),
-      ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: () => getImage(context),
-        tooltip: 'Pick Image',
-        child: new Icon(Icons.add_a_photo),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        child: loading 
+        ? WidgetSpinner() 
+        : Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    flex: 6,
+                    child: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      padding: EdgeInsets.all(12.0),
+                      child: Container(),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: filters.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return InkWell(
+                            child: Container(
+                              padding: EdgeInsets.all(5.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(),
+                                  SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Text(
+                                    filters[index].name,
+                                  )
+                                ],
+                              ),
+                            ),
+                            onTap: () => setState(() {
+                                  _filter = filters[index];
+                                }),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ), 
+        
       ),
     );
   }

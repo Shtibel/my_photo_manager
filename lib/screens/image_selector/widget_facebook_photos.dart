@@ -278,7 +278,7 @@ class _FacebookPhotos extends State<FacebookPhotos> {
   Widget build(BuildContext context) {
     return facebookTabControllerLength == null
         ? Center(
-            child: Spinner(),
+            child: WidgetSpinner(),
           )
         : DefaultTabController(
             length: facebookTabControllerLength,

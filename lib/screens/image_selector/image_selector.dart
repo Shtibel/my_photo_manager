@@ -49,9 +49,7 @@ class _ScreenImageSelectorState extends State<ScreenImageSelector> {
   @override
   Widget build(BuildContext context) {
     
-    return ScopedModel<AppModel>(
-      model: AppModel(),
-      child: Scaffold(
+    return Scaffold(
           appBar: AppBar(
             title: Text('Select'),
             actions: <Widget>[
@@ -83,8 +81,8 @@ class _ScreenImageSelectorState extends State<ScreenImageSelector> {
           ),
           body: _bodyWidget,
           bottomNavigationBar: ImageSelectorBottom(),
-      )
-    );
+      );
+    
   }
 
   

@@ -33,6 +33,7 @@ dependencies:
     git:
         url: git://github.com/skkallayath/photofilters.git
         ref: da75ed33435e8c50cd8007b0920951d456ba5399
+  image_picker: ^0.6.0+9
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

@@ -7,14 +7,11 @@ import 'widget_buttom.dart';
 class ScreenHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ScopedModel<AppModel>(
-      model: AppModel(),
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text('Photo manager'),
         ),
         bottomNavigationBar: HomeWidgetBottom(),
-      ),
-    );
+      );
   }
 }
