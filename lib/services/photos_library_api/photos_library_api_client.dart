@@ -18,8 +18,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart';
-import 'package:my_photo_manager/photos_library_api/media_items_request.dart';
-import 'package:my_photo_manager/photos_library_api/media_items_response.dart';
+import 'media_items_request.dart';
+import 'media_items_response.dart';
 import 'album.dart';
 import 'package:http/http.dart' as http;
 import 'batch_create_media_items_request.dart';

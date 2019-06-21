@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:my_photo_manager/Widgets/spinner.dart';
+import 'package:my_photo_manager/Widgets/triangle_sticker.dart';
 import 'package:my_photo_manager/models/model.dart';
-import 'package:my_photo_manager/photos_library_api/album.dart';
-import 'package:my_photo_manager/photos_library_api/list_albums_response.dart';
-import 'package:my_photo_manager/photos_library_api/media_item.dart';
-import 'package:my_photo_manager/photos_library_api/media_items_request.dart';
-import 'package:my_photo_manager/photos_library_api/media_items_response.dart';
-import 'package:my_photo_manager/photos_library_api/photos_library_api_client.dart';
-import 'package:my_photo_manager/photos_library_api/search_media_items_request.dart';
-import 'package:my_photo_manager/photos_library_api/search_media_items_response.dart';
+import 'package:my_photo_manager/services/photos_library_api/album.dart';
+import 'package:my_photo_manager/services/photos_library_api/list_albums_response.dart';
+import 'package:my_photo_manager/services/photos_library_api/media_item.dart';
+import 'package:my_photo_manager/services/photos_library_api/media_items_response.dart';
+import 'package:my_photo_manager/services/photos_library_api/photos_library_api_client.dart';
+import 'package:my_photo_manager/services/photos_library_api/search_media_items_request.dart';
+import 'package:my_photo_manager/services/photos_library_api/search_media_items_response.dart';
 import 'package:my_photo_manager/services/google_login.dart';
+import 'package:my_photo_manager/services/provider.dart';
 import 'package:my_photo_manager/utils/db_helper.dart';
-import 'package:my_photo_manager/utils/triangle_sticker.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
 class WidgetGooglePhotos extends StatefulWidget {
   @override
@@ -132,7 +130,7 @@ class _WidgetGooglePhotosState extends State<WidgetGooglePhotos> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     //get google token
-    googleToken = prefs.getString('google_token');
+    //googleToken = prefs.getString('google_token');
 
     //check if there is no token > show login
     dynamic googleResult = '';
@@ -262,6 +260,17 @@ class _WidgetGooglePhotosState extends State<WidgetGooglePhotos> {
               width: _width,
               height: _height);
           model.addItem(item);
+          dynamic result = model.addItem(item);
+          if(result!=null){
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return result;
+              }
+            );
+          }else{
+            Provider.of(context).value += 1;
+          }
           setState(() {});
         },
         child: Stack(

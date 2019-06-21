@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_photo_manager/Widgets/triangle_sticker.dart';
+import 'package:my_photo_manager/services/provider.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -8,7 +10,6 @@ import 'package:scoped_model/scoped_model.dart';
 import '../../services/facebook_login.dart';
 import '../../Widgets/spinner.dart';
 import '../../utils/db_helper.dart';
-import '../../utils/triangle_sticker.dart';
 import '../../models/model.dart';
 
 class WidgetFacebookPhotos extends StatefulWidget {
@@ -261,7 +262,17 @@ class _WidgetFacebookPhotos extends State<WidgetFacebookPhotos> {
               image: _image,
               width: _width,
               height: _height);
-          model.addItem(item);
+          dynamic result = model.addItem(item);
+          if (result != null) {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return result;
+                });
+          }else{
+            Provider.of(context).value += 1;
+          }
+          
           setState(() {});
         },
         child: Stack(

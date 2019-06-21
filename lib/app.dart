@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_photo_manager/services/provider.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:simple_auth_flutter/simple_auth_flutter.dart';
 
@@ -21,13 +22,15 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ScopedModel<AppModel>(
       model: AppModel(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: ScreenHome())
+      child: new Provider(
+          initialValue: 0,
+          child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                primarySwatch: Colors.blue,
+              ),
+              home: ScreenHome())),
     );
   }
 }

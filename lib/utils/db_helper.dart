@@ -41,15 +41,25 @@ class DbHelper {
   }
 
   void _createDb(Database db, int version) async {
-    await db.execute(
-        'CREATE TABLE $tableName ('+
-          '$colId INTEGER PRIMARY KEY, '+
-          '$colLibrary TEXT, '+
-          '$colDirectory TEXT, '+
-          '$colThumb TEXT, '+
-          '$colImage TEXT, '+
-          '$colWidth INTEGER, '+
-          '$colHeight INTEGER'+
+    await db.execute('CREATE TABLE $tableName (' +
+        '$colId INTEGER PRIMARY KEY, ' +
+        '$colLibrary TEXT, ' +
+        '$colDirectory TEXT, ' +
+        '$colThumb TEXT, ' +
+        '$colImage TEXT, ' +
+        '$colWidth INTEGER, ' +
+        '$colHeight INTEGER' +
+        ')');
+
+    //create selected images table
+    await db.execute('CREATE TABLE selected_photos (' +
+        '$colId INTEGER PRIMARY KEY, ' +
+        '$colLibrary TEXT, ' +
+        '$colDirectory TEXT, ' +
+        '$colThumb TEXT, ' +
+        '$colImage TEXT, ' +
+        '$colWidth INTEGER, ' +
+        '$colHeight INTEGER' +
         ')');
   }
 
@@ -67,52 +77,71 @@ class DbHelper {
     final Database db = await this.database;
     await db.rawDelete(sql, params);
   }
-  
+
   Future<List<Map<String, dynamic>>> readList(String library) async {
     final Database db = await this.database;
 
-    var result =
-        await db.rawQuery('select * from $tableName where $colLibrary=?',[library]);
+    var result = await db
+        .rawQuery('select * from $tableName where $colLibrary=?', [library]);
     return result;
   }
 
-  Future<List<Map<String, dynamic>>> selectFromDb(String sql, dynamic params) async {
+  Future<List<Map<String, dynamic>>> selectFromDb(
+      String sql, dynamic params) async {
     final Database db = await this.database;
 
     var result = await db.rawQuery(sql, params);
     return result;
   }
 
-  Future<int> insertList(Map<String, dynamic> rowData) async {
+  Future<int> insertList(String table, Map<String, dynamic> rowData) async {
     final Database db = await this.database;
 
     int result = await db.rawInsert(
-        'INSERT INTO $tableName('+
-          '$colLibrary, '+
-          '$colDirectory, '+
-          '$colThumb, '+
-          '$colImage, '+
-          '$colWidth, '+
-          '$colHeight'+
-        ') VALUES(?, ?, ?, ?, ?, ?)',
+        'INSERT INTO $table(' +
+            '$colLibrary, ' +
+            '$colDirectory, ' +
+            '$colThumb, ' +
+            '$colImage, ' +
+            '$colWidth, ' +
+            '$colHeight' +
+            ') VALUES(?, ?, ?, ?, ?, ?)',
         [
-          rowData['$colLibrary'], 
-          rowData['$colDirectory'], 
+          rowData['$colLibrary'],
+          rowData['$colDirectory'],
           rowData['$colThumb'],
           rowData['$colImage'],
           rowData['$colWidth'],
           rowData['$colHeight']
-        ]
-      );
+        ]);
 
     return result;
   }
 
-  Future<void> insertToDb(
-      String library, String directory, List<Map<String, dynamic>> photos) async {
+  Future<int> deleteRowFromDb(
+      String table, Map<String, dynamic> rowData) async {
+    final Database db = await this.database;
+
+    int result = await db.delete(table,
+        where:
+            '$colLibrary=? AND $colDirectory=? AND $colThumb=? AND $colImage=? AND $colWidth=? AND $colHeight=?',
+        whereArgs: [
+          rowData['$colLibrary'],
+          rowData['$colDirectory'],
+          rowData['$colThumb'],
+          rowData['$colImage'],
+          rowData['$colWidth'],
+          rowData['$colHeight']
+        ]);
+
+    return result;
+  }
+
+  Future<void> insertToDb(String library, String directory,
+      List<Map<String, dynamic>> photos) async {
     //try insert
     photos.forEach((photo) async {
-      await insertList({
+      await insertList(tableName, {
         'library': photo['library'],
         'directory': photo['directory'],
         'thumb': photo['thumb'],
